@@ -3,6 +3,8 @@ package edu.ilstu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         TimePicker alarmTime = findViewById(R.id.timePicker);
 
+        createNotificationChannel();
+
         final Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),
                 RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
 
@@ -55,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Alarm Set", Toast.LENGTH_LONG).show();
                 setTimer(v);
+
+
+
             }
         });
 
@@ -86,7 +93,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void createNotificationChannel(){
+        CharSequence name = "AlarmNotificationChannel";
+        String description = "Channel for One-Time Alarms";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel("notifyme",name,importance);
+        channel.setDescription(description);
 
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
+    }
 
 
 

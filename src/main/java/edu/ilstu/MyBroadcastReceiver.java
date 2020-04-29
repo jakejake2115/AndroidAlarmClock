@@ -1,5 +1,6 @@
 package edu.ilstu;
 
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -20,16 +21,26 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(2000);
 
-        Notification noti = new Notification.Builder(context).setContentTitle("Alarm is Set").setContentText("Alarm Successfully Set").setSmallIcon(R.mipmap.ic_launcher).build();
-
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyme")
-//                .setSmallIcon(R.mipmap.ic_launcher)
-//                .setContentTitle("Alarm is Set")
-//                .setContentText("Alarm Successfully Set");
-//
-//        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+        Notification noti = new Notification.Builder(context).setContentTitle("Alarm Firing").setContentText("One-Time Alarm").setSmallIcon(R.mipmap.ic_launcher).build();
 
 
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyme")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Alarm Firing")
+                .setContentText("One-Time Alarm");
+
+//        AlertDialog dialog = new AlertDialog.Builder(context)
+//                .setTitle("Alarm Firing")
+//                .setMessage("One-Time Alarm")
+//                .setNegativeButton("Dismiss",null)
+//                .show();
+
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+
+        notificationManagerCompat.notify(200,builder.build());
 
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -39,6 +50,5 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
         Ringtone r = RingtoneManager.getRingtone(context, notification);
         r.play();
-        noti.
         }
     }
